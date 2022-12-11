@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\def\p{\partial}
+\begin{document}
+If we only take the lowest order effects of the motion of mass sources into account and neglect stresses, we can define two vector field, $\vec{E}$ and $\vec{B}$, which are similar to the electric and magnetic field. We can define $A_\mu=-\frac{1}{4}c_0\bar{h}_{\mu 0}=(\varphi/c_0,\vec{A})$, then $A_\mu$, which are similar to the electromagnetic 4-potential, will satisfy
+\begin{equation}
+    \p^\nu\p_\nu A_\mu=-\frac{4\pi G_0}{c_0^3}J_\mu,\quad\p^\mu A_\mu=0,
+\end{equation}
+where $J_\mu=-c_0T_{\mu 0}=(c_0\rho,\vec{j})$. If we define $\vec{E}=-\vec{\nabla}\varphi-\frac{\p}{\p t}\vec{A}$, $\vec{B}=\vec{\nabla}\times\vec{A}$, and $\varepsilon_{\text{G}0}=\frac{c_0}{4\pi G_0}$, $\mu_{\text{G}0}=\frac{4\pi G_0}{c_0^3}$, then there will be
+\begin{equation}
+    \begin{cases}
+        \vec{\nabla}\cdot(\varepsilon_{\text{G}0}\vec{E})=\rho,\\
+        \vec{\nabla}\cdot\vec{B}=0,\\
+        \vec{\nabla}\times\vec{E}=-\frac{\p}{\p t}\vec{B},\\
+        \vec{\nabla}\times(\mu_{\text{G}0}^{-1}\vec{B})=\vec{j}+\frac{\p}{\p t}(\varepsilon_{\text{G}0}\vec{E}),
+    \end{cases}
+\end{equation}
+and the acceleration of mass particle $\vec{a}$ will satisfy
+\begin{equation}
+    \vec{a}=-\vec{E}-4\vec{v}\times\vec{B}
+\end{equation}
+\end{document}
