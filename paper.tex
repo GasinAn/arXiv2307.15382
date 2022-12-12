@@ -2,12 +2,12 @@
 \usepackage{amsmath}
 \def\p{\partial}
 \begin{document}
-If we only take the lowest order effects of the motion of mass sources into account and neglect stresses, we can define two vector field, $\vec{E}$ and $\vec{B}$, which are similar to the electric and magnetic field. We can define $A_\mu=-\frac{1}{4}c_0\bar{h}_{\mu 0}=(\varphi/c_0,\vec{A})$, then $A_\mu$, which are similar to the electromagnetic 4-potential, will satisfy
+If we only take the lowest order effects of the motion of mass sources into account and neglect stresses, we can define two vector field, $\vec{E}$ and $\vec{B}$, which are similar to the electric and magnetic field. We can define $A_\mu=-\frac{1}{4}c_0\bar{h}_{0 \mu}=(\varphi/c_0,\vec{A})$, then $A_\mu$, which are similar to the electromagnetic 4-potential, will satisfy
 \begin{equation}
-    \p^\nu\p_\nu A_\mu=-\frac{4\pi G_0}{c_0^3}J_\mu,\quad\p^\mu A_\mu=0,
+    \p^\nu\p_\nu A_\mu=-\frac{4\pi G_0}{c_0^2}J_\mu,\quad\p^\mu A_\mu=0,
 \end{equation}
-where $J_\mu=-c_0T_{\mu 0}=(c_0\rho,\vec{j})$. If we define $\vec{E}=-\vec{\nabla}\varphi-\frac{\p}{\p t}\vec{A}$, $\vec{B}=\vec{\nabla}\times\vec{A}$, and $\varepsilon_{\text{G}0}=\frac{c_0}{4\pi G_0}$, $\mu_{\text{G}0}=\frac{4\pi G_0}{c_0^3}$, then there will be
-\begin{equation}
+where $J_\mu=-c_0T_{0 \mu}/c_0^2=(c_0\rho,\vec{j})=\rho(c_0,\vec{v})$ is 4-momentum density. If we define $\vec{E}=-\vec{\nabla}\varphi-\frac{\p}{\p t}\vec{A}$, $\vec{B}=\vec{\nabla}\times\vec{A}$, and $\varepsilon_{\text{G}0}=\frac{1}{4\pi G_0}$, $\mu_{\text{G}0}=\frac{4\pi G_0}{c_0^2}$, then there will be
+\begin{equation}\label{maxwell_0}
     \begin{cases}
         \vec{\nabla}\cdot(\varepsilon_{\text{G}0}\vec{E})=\rho,\\
         \vec{\nabla}\cdot\vec{B}=0,\\
@@ -16,7 +16,18 @@ where $J_\mu=-c_0T_{\mu 0}=(c_0\rho,\vec{j})$. If we define $\vec{E}=-\vec{\nabl
     \end{cases}
 \end{equation}
 and the acceleration of mass particle $\vec{a}$ will satisfy
-\begin{equation}
-    \vec{a}=-\vec{E}-4\vec{v}\times\vec{B}
+\begin{equation}\label{lorentz}
+    \vec{a}=-\vec{E}-4\vec{v}\times\vec{B}.
 \end{equation}
+
+Since \eqref{maxwell_0} are identical to Maxwell's equations, and \eqref{lorentz} is identical to the Lorentz force equation except for an overall minus sign and a factor of $4$ in the ``magnetic force'' term, we assume that the constants $\varepsilon_{\text{G}0}$ and $\mu_{\text{G}0}$ can simply vary as constants $\varepsilon_{0}$ and $\mu_{0}$ in electromagnetic theories, which means, \eqref{lorentz} is still valid and \eqref{maxwell_0} becomes
+\begin{equation}\label{maxwell}
+    \begin{cases}
+        \vec{\nabla}\cdot\vec{D}=\rho,\\
+        \vec{\nabla}\cdot\vec{B}=0,\\
+        \vec{\nabla}\times\vec{E}=-\frac{\p}{\p t}\vec{B},\\
+        \vec{\nabla}\times\vec{H}=\vec{j}+\frac{\p}{\p t}\vec{D},
+    \end{cases}
+\end{equation}
+where $\vec{D}=\varepsilon_{\text{G}}\vec{E}$, $\vec{B}=\mu_{\text{G}}\vec{H}$. Also, we define $c=\frac{1}{\sqrt{\varepsilon_{\text{G}}\mu_{\text{G}}}}$, $G=\frac{1}{4\pi\varepsilon_{\text{G}}}$, together with $\vec{E}=-\vec{\nabla}\varphi-\frac{\p}{\p t}\vec{A}$, $\vec{B}=\vec{\nabla}\times\vec{A}$, and $\bar{h}_{0 \mu}=-4A_\mu/c=-4(\varphi/c,\vec{A})/c$.
 \end{document}
