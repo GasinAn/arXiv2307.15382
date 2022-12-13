@@ -2,7 +2,7 @@
 \usepackage{amsmath}
 \def\p{\partial}
 \begin{document}
-If we only take the lowest order effects of the motion of mass sources into account and neglect stresses, we can define two vector field, $\vec{E}$ and $\vec{B}$, which are similar to the electric and magnetic field. We can define $A_\mu=-\frac{1}{4}c_0\bar{h}_{0 \mu}=(\varphi/c_0,\vec{A})$, then $A_\mu$, which are similar to the electromagnetic 4-potential, will satisfy
+If we only take the lowest order effects of the motion of mass sources into account and neglect stresses, then we can define two vector field, $\vec{E}$ and $\vec{B}$, which are similar to the electric and magnetic field. We can define $A_\mu=-\frac{1}{4}c_0\bar{h}_{0 \mu}=(\varphi/c_0,\vec{A})$, then $A_\mu$, which are similar to the electromagnetic 4-potential, will satisfy
 \begin{equation}
     \p^\nu\p_\nu A_\mu=-\frac{4\pi G_0}{c_0^2}J_\mu,\quad\p^\mu A_\mu=0,
 \end{equation}
@@ -30,4 +30,15 @@ Since \eqref{maxwell_0} are identical to Maxwell's equations, and \eqref{lorentz
     \end{cases}
 \end{equation}
 where $\vec{D}=\varepsilon_{\text{G}}\vec{E}$, $\vec{B}=\mu_{\text{G}}\vec{H}$. Also, we define $c=\frac{1}{\sqrt{\varepsilon_{\text{G}}\mu_{\text{G}}}}$, $G=\frac{1}{4\pi\varepsilon_{\text{G}}}$, together with $\vec{E}=-\vec{\nabla}\varphi-\frac{\p}{\p t}\vec{A}$, $\vec{B}=\vec{\nabla}\times\vec{A}$, and $\bar{h}_{0 \mu}=-4A_\mu/c=-4(\varphi/c,\vec{A})/c$.
+
+We assume that the source of GW is located in a spherical coordinate origin and $c=c(r)$, $G=G(r)$, We suppose that $\bar{h}_{0 \mu}(\rho,\vec{j};c_0,G_0)$ is the solution of $\bar{h}_{0 \mu}$ when $\rho$ and $\vec{j}$ are assumed and $c\equiv c_0$, $G\equiv G_0$ everywhere, then if $c\equiv c_\text{s}$, $G\equiv G_\text{s}$, where $c_\text{s}$ and $G_\text{s}$ are two constants, within a region $r\leq R$, then $\bar{h}_{0 \mu}(\rho,\vec{j};c_\text{s},G_\text{s})$ can be a solution of $\bar{h}_{0 \mu}$ within the region $r\leq R$, and now we can solve the equations
+\begin{equation}
+    \begin{cases}
+        \vec{\nabla}\cdot\vec{D}=0,\\
+        \vec{\nabla}\cdot\vec{B}=0,\\
+        \vec{\nabla}\times\vec{E}=-\frac{\p}{\p t}\vec{B},\\
+        \vec{\nabla}\times\vec{H}=+\frac{\p}{\p t}\vec{D},
+    \end{cases}
+\end{equation}
+with the boundary conditions $\vec{E}|_{r=R}=\vec{E}(\rho,\vec{j};c_\text{s},G_\text{s})$, $\vec{B}|_{r=R}=\vec{B}(\rho,\vec{j};c_\text{s},G_\text{s})$, where $\vec{E}(\rho,\vec{j};c_\text{s},G_\text{s})$ and $\vec{B}(\rho,\vec{j};c_\text{s},G_\text{s})$ can be derived from $\bar{h}_{0 \mu}(\rho,\vec{j};c_\text{s},G_\text{s})$.
 \end{document}
