@@ -2,7 +2,7 @@
 \usepackage{amsmath}
 \def\p{\partial}
 \begin{document}
-If we only take the lowest order effects of the motion of mass sources into account and neglect stresses, then we can define two vector field, $\vec{E}$ and $\vec{B}$, which are similar to the electric and magnetic field. We can define $A_\mu=-\frac{1}{4}c_0\bar{h}_{0 \mu}=(\varphi/c_0,\vec{A})$, then $A_\mu$, which are similar to the electromagnetic 4-potential, will satisfy
+If we only take the lowest order effects of the motion of mass sources into account and neglect stresses, then we can define two vector fields, $\vec{E}$ and $\vec{B}$, which are similar to the electric and magnetic field. We can define $A_\mu=-\frac{1}{4}c_0\bar{h}_{0 \mu}=(\varphi/c_0,\vec{A})$, then $A_\mu$, which are similar to the electromagnetic 4-potential, will satisfy
 \begin{equation}
     \p^\nu\p_\nu A_\mu=-\frac{4\pi G_0}{c_0^2}J_\mu,\quad\p^\mu A_\mu=0,
 \end{equation}
@@ -41,4 +41,10 @@ We assume that the source of GW is located in a spherical coordinate origin and 
     \end{cases}
 \end{equation}
 with the boundary conditions $\vec{E}|_{r=R}=\vec{E}(\rho,\vec{j};c_\text{s},G_\text{s})$, $\vec{B}|_{r=R}=\vec{B}(\rho,\vec{j};c_\text{s},G_\text{s})$, where $\vec{E}(\rho,\vec{j};c_\text{s},G_\text{s})$ and $\vec{B}(\rho,\vec{j};c_\text{s},G_\text{s})$ can be derived from $\bar{h}_{0 \mu}(\rho,\vec{j};c_\text{s},G_\text{s})$.
+
+We can use the Li\'enard--Wiechert potentials formula to calculate the $\vec{E}$ and $\vec{B}$ field produced by a moving particle, whose position is $\vec{r}'$, in vacuum, and the results are
+\begin{equation}
+    \vec{E}=\frac{m}{4 \pi \varepsilon_{\text{G}0}}\left[\frac{(\vec{n}'-\vec{\beta})}{(1-\vec{\beta} \cdot \vec{n}')^{3} \gamma^{2} {r'}^{2}}+\frac{\vec{n}' \times\{(\vec{n}'-\vec{\beta}) \times \dot{\vec{\beta}}\}}{(1-\vec{\beta} \cdot \vec{n}')^{3} c_0 r'}\right]_{\text{ret}},\vec{B}=\left[\frac{\vec{n}'\times \vec{E}}{c_0}\right]_{\text{ret}},
+\end{equation}
+where $r'=\lvert\vec{r}'\rvert$, $\vec{n}'=\vec{r}'/r'$, $\vec{\beta}=\dot{\vec{r}}'/c_0$, $\gamma=1/\sqrt{1-\lvert\vec{\beta}\rvert^2}$, and ``ret'' denotes that the fields are ``retarded fields''.
 \end{document}
