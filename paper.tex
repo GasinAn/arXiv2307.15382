@@ -137,4 +137,36 @@ If $p$ is small, \eqref{wave_solution} can be approximated to
     f(r,t)=e^{\int(p/2)\d r}[C_+e^{i(+\int(\omega/c)\d r-\omega t)}+C_-e^{i(-\int(\omega/c)\d r-\omega t)}],
 \end{equation}
 then wave of $\vec{E}$ and $\vec{H}$ will approximately arrive Earth at the same time, and also $rE \propto e^{\int(\frac{\d}{\d r}(\ln\mu_{\text{G}})/2)\d r} \propto \mu_{\text{G}}^{1/2}$, $rH\propto e^{\int(\frac{\d}{\d r}(\ln\varepsilon_{\text{G}})/2)\d r} \propto \varepsilon_{\text{G}}^{1/2}$. Again, if $p$ is small, $\left\lvert i(\omega/c)\int f\d r\right\rvert \approx\left\lvert \frac{\p}{\p r}\int f\d r\right\rvert $ and $-i\omega\int f\d t=\frac{\p}{\p t}\int f\d t$. Since $\vec{H}=\mu_\text{G}^{-1}\vec{\nabla}\times\vec{A}$ and $H\propto \varepsilon_\text{G}^{1/2}/r$, $\mu_\text{G}^{-1}(\omega/c)A\propto\varepsilon_{\text{G}}^{1/2}/r\Rightarrow A\propto \mu_\text{G}^{1/2}/r$. Since $\vec{E}=-\vec{\nabla}\varphi-\frac{\p}{\p t}\vec{A}$, $E\propto \mu_\text{G}^{1/2}/r$ and $\frac{\p}{\p t}\vec{A}\propto \omega\mu_\text{G}^{1/2}/r\propto \mu_\text{G}^{1/2}/r$, $(\omega/c)\varphi\propto\mu_\text{G}^{1/2}/r\Rightarrow \varphi/c\propto\mu_\text{G}^{1/2}/r$. Therefore, $\bar{h}_{0 \mu}=-4(\varphi/c,\vec{A})/c\propto\mu_\text{G}^{1/2}/cr\propto G^{1/2}/c^2r$.
+
+It is known that if $c\equiv c_0$, $G\equiv G_0$ everywhere, then the amplitude $h$ of GW produced by an inspiring binary satisfies
+\begin{equation}
+    h\propto\frac{\frac{G_0\mathcal{M}}{c_0^3}[\pi \frac{G_0\mathcal{M}}{c_0^3}F(t)]^{2/3}}{r/c_0}\cos[\int 2\pi F(t)\,\d t],
+\end{equation}
+where $\mathcal{M}$ is the chirp mass of binary and $F$ is the frequency of GW. Therefore in the region $r\leq R$ mentioned above,
+\begin{equation}
+    h\propto\frac{\frac{G_\text{s}\mathcal{M}}{c_\text{s}^3}[\pi \frac{G_\text{s}\mathcal{M}}{c_\text{s}^3}F(t)]^{2/3}}{r/c_\text{s}}\cos[\int 2\pi F(t)\,\d t],
+\end{equation}
+and then on Earth,
+\begin{equation}
+    h\propto\sqrt{\frac{c_\text{s}^4/G_\text{s}}{c_0^4/G_0}}\frac{\frac{G_\text{s}\mathcal{M}}{c_\text{s}^3}[\pi \frac{G_\text{s}\mathcal{M}}{c_\text{s}^3}F(t)]^{2/3}}{d/c_\text{s}}\cos[\int 2\pi F(t)\,\d t],
+\end{equation}
+where $d$ is the physical distance of binary. Considering the red shift, the amplitude of GW produced by an inspiring binary on Earth satisfies
+\begin{equation}
+    h\propto\sqrt{\frac{c_\text{s}^4/G_\text{s}}{c_0^4/G_0}}\frac{\frac{G_\text{s}\mathcal{M}}{c_\text{s}^3}[\pi \frac{G_\text{s}\mathcal{M}}{c_\text{s}^3}F(t)]^{2/3}}{d/c_\text{s}}\cos[\int 2\pi \frac{F(t)}{1+z}\,\d t],
+\end{equation}
+where $z$ is the red shift of binary. If we define $F_\text{obs}(t)=F(t)/(1+z)$ and $\mathcal{M}_\text{obs}=\mathcal{M}(1+z)$, then
+\begin{equation}
+    h\propto\sqrt{\frac{c_\text{s}^6/G_\text{s}}{c_0^6/G_0}}\frac{\frac{G_\text{s}\mathcal{M}_\text{obs}}{c_\text{s}^3}[\pi \frac{G_\text{s}\mathcal{M}_\text{obs}}{c_\text{s}^3}F_\text{obs}(t)]^{2/3}}{d_\text{L}/c_0}\cos[\int 2\pi F_\text{obs}(t)\,\d t],
+\end{equation}
+where $d_\text{L}=d(1+z)$ is the luminosity distance of binary. However, in former researches, $h$ was assumed to satisfy
+\begin{equation}
+    h\propto\frac{\frac{G_0\mathcal{M}_\text{obs}}{c_0^3}[\pi \frac{G_0\mathcal{M}_\text{obs}}{c_0^3}F_\text{obs}(t)]^{2/3}}{d_\text{L}/c_0}\cos[\int 2\pi F_\text{obs}(t)\,\d t],
+\end{equation}
+therefore, $d_\text{L,G}$, the result of measuring $d_\text{L}$ by using GW observation data and methods in former researches, will satisfy
+\begin{equation}
+    \sqrt{\frac{G_\text{s}/c_\text{s}^6}{G_0/c_0^6}}=\frac{d_\text{L,G}}{d_\text{L}},
+\end{equation}
+where $d_\text{L}$ can be also measured precisely by using EMW observation data.
+
+Therefore, we can constrain $c_\text{s}$ and $G_\text{s}$ by comparing $d_\text{L}$ and $d_\text{L,G}$, and $\sqrt{[\frac{1}{2}\Delta\!\ln(G_\text{s}/G_0)]^2+[3\Delta\!\ln(c_\text{s}/c_0)]^2}=\Delta\!\ln(d_\text{L,G}/d_\text{L})$, where $\Delta$ denotes to the uncertainty. The result of measuring $d_\text{L}$ and $d_\text{L,G}$ for GW170817/GRB 170817A is $d_\text{L}=(42.9 \pm 3.2)\text{Mpc}$ and $d_\text{L,G}=40_{-14}^{+8}\text{Mpc}$, and we estimate that this result can constrain $c_\text{s}$ and $G_\text{s}$ as $(G_\text{s}/G_0)^{1/2}(c_\text{s}/c_0)^3=0.9 \pm 0.3$.
 \end{document}
