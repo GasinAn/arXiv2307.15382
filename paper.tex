@@ -124,17 +124,17 @@ where $C_+$ and $C_-$ are two constants, and
 \begin{equation}
     f(r,t)=e^{(p/2)r}[C_+e^{i(+\sqrt{(\omega/c)^2-(p/2)^2}r-\omega t)}+C_-e^{i(-\sqrt{(\omega/c)^2-(p/2)^2}r-\omega t)}],
 \end{equation}
-where $\omega=kc$. If $\d p/\d r$ is small, we can divide the region $r> R$ into many spherical shells, and in each of them $p$ is nearly constant. To make $f(r,t)$ continuous anytime, we suppose that the ``angular frequency'' $\omega$ in each shell is same, and then there will be a approximate solution
-\begin{equation}\label{solution}
+where $\omega=kc$. If $\d p/\d r$ is small, we can divide the region $r> R$ into many spherical shells, and in each of them $p$ is nearly constant. To make $f(r,t)$ continuous anytime, we suppose that the ``angular frequency'' $\omega$ in each shell is the same, and then there will be a approximate solution
+\begin{equation}\label{wave_solution}
     f(r,t)=e^{\int(p/2)\d r}[C_+e^{i(+\int\sqrt{(\omega/c)^2-(p/2)^2}\d r-\omega t)}+C_-e^{i(-\int\sqrt{(\omega/c)^2-(p/2)^2}\d r-\omega t)}],
 \end{equation}
 therefore
 \begin{equation}
     f(r,t)=e^{\int O(p)\d r}[C_+e^{i(+\int[(\omega/c)^2+O(p^2)]\d r-\omega t)}+C_-e^{i(+\int[(\omega/c)^2+O(p^2)]\d r-\omega t)}].
 \end{equation}
-If $p$ is small, \eqref{solution} can be approximated to
+If $p$ is small, \eqref{wave_solution} can be approximated to
 \begin{equation}
     f(r,t)=e^{\int(p/2)\d r}[C_+e^{i(+\int(\omega/c)\d r-\omega t)}+C_-e^{i(-\int(\omega/c)\d r-\omega t)}],
 \end{equation}
-then wave of $\vec{E}$ and $\vec{H}$ will approximately arrive Earth at the same time, and also $rE \propto e^{\int(\frac{\d}{\d r}(\ln\mu_{\text{G}})/2)\d r} \propto \mu_{\text{G}}^{1/2}$, $rH\propto e^{\int(\frac{\d}{\d r}(\ln\varepsilon_{\text{G}})/2)\d r} \propto \varepsilon_{\text{G}}^{1/2}$.
+then wave of $\vec{E}$ and $\vec{H}$ will approximately arrive Earth at the same time, and also $rE \propto e^{\int(\frac{\d}{\d r}(\ln\mu_{\text{G}})/2)\d r} \propto \mu_{\text{G}}^{1/2}$, $rH\propto e^{\int(\frac{\d}{\d r}(\ln\varepsilon_{\text{G}})/2)\d r} \propto \varepsilon_{\text{G}}^{1/2}$. Again, if $p$ is small, $\left\lvert i(\omega/c)\int f\d r\right\rvert \approx\left\lvert \frac{\p}{\p r}\int f\d r\right\rvert $ and $-i\omega\int f\d t=\frac{\p}{\p t}\int f\d t$. Since $\vec{H}=\mu_\text{G}^{-1}\vec{\nabla}\times\vec{A}$ and $H\propto \varepsilon_\text{G}^{1/2}/r$, $\mu_\text{G}^{-1}(\omega/c)A\propto\varepsilon_{\text{G}}^{1/2}/r\Rightarrow A\propto \mu_\text{G}^{1/2}/r$. Since $\vec{E}=-\vec{\nabla}\varphi-\frac{\p}{\p t}\vec{A}$, $E\propto \mu_\text{G}^{1/2}/r$ and $\frac{\p}{\p t}\vec{A}\propto \omega\mu_\text{G}^{1/2}/r\propto \mu_\text{G}^{1/2}/r$, $(\omega/c)\varphi\propto\mu_\text{G}^{1/2}/r\Rightarrow \varphi/c\propto\mu_\text{G}^{1/2}/r$. Therefore, $\bar{h}_{0 \mu}=-4(\varphi/c,\vec{A})/c\propto\mu_\text{G}^{1/2}/cr\propto G^{1/2}/c^2r$.
 \end{document}
