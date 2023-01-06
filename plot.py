@@ -21,7 +21,8 @@ sample = np.sort((np.random.choice(d_l, size=d_l.size**2)
 print(sample.mean(), sample.std())
 print(sample[int(sample.size*(0.5-0.3413))],
       sample[int(sample.size*(0.5+0.3413))])
-plt.hist(sample, bins=d_l.size, range=(0.0, 2.0), density=True, histtype='step')
+plt.hist(sample, bins=int(d_l.size**(1/2)), range=(0.0, 2.0),
+         density=True, histtype='step')
 plt.xlabel('${G_\\mathrm{s}/G}$')
 plt.ylabel('$p({G_\\mathrm{s}/G})$')
 plt.grid()
