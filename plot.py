@@ -11,9 +11,13 @@ d_l = np.sort(dset['luminosity_distance_Mpc'])
 # plt.hist(d_l, bins=int(d_l.size**(1/2)), density=True)
 # plt.show()
 
-# plt.hist((np.random.choice(d_l, size=d_l.size**2)
-#          /np.random.normal(loc=42.9, scale=3.2, size=d_l.size**2)),
-#          bins=d_l.size, range=(0.25, 1.50), density=True, histtype='step')
+# sample = np.sort((np.random.choice(d_l, size=d_l.size**2)
+#                  /np.random.normal(loc=42.9, scale=3.2, size=d_l.size**2)))
+# print(sample.mean(), sample.std())
+# print(sample[int(sample.size*(0.5-0.3413))],
+#       sample[int(sample.size*(0.5+0.3413))])
+# plt.hist(sample, bins=int(d_l.size**(1/2)), range=(0.25, 1.50),
+#          density=True, histtype='step')
 # plt.xlabel('$\\sqrt{G_\\mathrm{s}/G}$')
 # plt.show()
 sample = np.sort((np.random.choice(d_l, size=d_l.size**2)
