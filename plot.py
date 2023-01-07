@@ -23,14 +23,14 @@ for x in range(500):
     for y in range(780):
         if (max(abs(img[y,x,0]-31),
                 abs(img[y,x,1]-119),
-                abs(img[y,x,2]-180))<= 10):
+                abs(img[y,x,2]-180)) <= 32):
             ys.append(y)
     if (ys != []):
         sample.append([x, np.array(ys).mean()])
 x, y = np.array(sample)[:,0], np.array(sample)[:,1]
-x, y = (x-100)/((426-100)/(4-0)), (y-699)/((699-11)/(0-0.7))
-plt.plot(x/2.5, y*2.5)
-
+x, y = (x-100)/((426-100)/(4-0))/2.5, (y-699)/((699-11)/(0-0.7))*2.5
+print(1.8/2.5, (1.8-0.1)/2.5, (1.8+1.1)/2.5)
+plt.plot(x, y)
 plt.xlabel('${G_\\mathrm{s}/G}$')
 plt.ylabel('$p({G_\\mathrm{s}/G})$')
 plt.legend(('GW170817', 'GW190521'))
