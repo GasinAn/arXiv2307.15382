@@ -1,32 +1,38 @@
 import h5py
 import numpy as np
-from matplotlib import pyplot as plt
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
 
 f = h5py.File('GW170817_GWTC-1.hdf5','r')
 dset = f['IMRPhenomPv2NRT_lowSpin_posterior']
 d_l = np.sort(dset['luminosity_distance_Mpc'])
 
-# plt.plot(d_l, (np.arange(d_l.size)+1)/d_l.size)
-# plt.show()
-plt.hist(d_l, bins='auto', density=True, histtype='step')
-plt.show()
-
-# sample = np.sort((np.random.choice(d_l, size=d_l.size**2)
-#                  /np.random.normal(loc=42.9, scale=3.2, size=d_l.size**2)))
-# print(sample.mean(), sample.std())
-# print(sample[int(sample.size*(0.5-0.3413))],
-#       sample[int(sample.size*(0.5+0.3413))])
-# plt.hist(sample, bins=40, range=(0.25, 1.50), density=True, histtype='step')
-# plt.xlabel('$\\sqrt{G_\\mathrm{s}/G}$')
-# plt.show()
-sample = np.sort((np.random.choice(d_l, size=d_l.size**2)
-                 /np.random.normal(loc=42.9, scale=3.2, size=d_l.size**2))**2)
+sample = np.sort((np.random.choice(d_l, size=10**8)
+                 /np.random.normal(loc=42.9, scale=3.2, size=10**8))**2)
 print(sample.mean(), sample.std())
 print(sample[int(sample.size*(0.5-0.3413))],
       sample[int(sample.size*(0.5+0.3413))])
-plt.hist(sample, bins=40, range=(0.0, 2.0), density=True, histtype='step')
+hist, bin_edges = np.histogram(sample, bins=200, 
+                               range=(0.0, 2.0), density=True)
+plt.plot((bin_edges[:-1]+bin_edges[1:])/2, hist)
+
+img = mpimg.imread('d_l_GW190521.jpg')
+sample = []
+for x in range(500):
+    ys = []
+    for y in range(780):
+        if (max(abs(img[y,x,0]-31),
+                abs(img[y,x,1]-119),
+                abs(img[y,x,2]-180))<= 10):
+            ys.append(y)
+    if (ys != []):
+        sample.append([x, np.array(ys).mean()])
+x, y = np.array(sample)[:,0], np.array(sample)[:,1]
+x, y = (x-100)/((426-100)/(4-0)), (y-699)/((699-11)/(0-0.7))
+plt.plot(x/2.5, y*2.5)
+
 plt.xlabel('${G_\\mathrm{s}/G}$')
 plt.ylabel('$p({G_\\mathrm{s}/G})$')
+plt.legend(('GW170817', 'GW190521'))
 plt.grid()
-plt.show()
-# plt.savefig('plot.eps', dpi=800)
+plt.savefig('plot.jpg', dpi=800)
