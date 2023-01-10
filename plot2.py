@@ -8,23 +8,33 @@ dset = f['IMRPhenomPv2NRT_lowSpin_posterior']
 d_l = np.sort(dset['luminosity_distance_Mpc'])
 
 sample = (np.random.choice(d_l, size=10**8)
-         /np.random.normal(loc=42.9, scale=3.2, size=10**8))**2
+         /np.random.normal(loc=42.9, scale=3.2, size=10**8))**2-1
 
-def plot_17(lamda=0):
-    # (1+alpha)/(1+alpha*exp(-d_l/lamda)) == sample
-    # alpha == -(1-sample)/(1-sample*exp(-d_l/lamda))
-    if (lamda == 0):
-        alpha = -((1-sample))
-    else:
-        alpha = -((1-sample)/(1-sample*np.exp(-42.9/lamda)))
-    alpha.sort()
-    print(alpha.mean(), alpha.std())
-    print(alpha[int(alpha.size*(0.5-0.3413))],
-          alpha[int(alpha.size*(0.5+0.3413))])
-    hist, bin_edges = np.histogram(alpha, bins=200, density=True)
-    plt.plot((bin_edges[:-1]+bin_edges[1:])/2, hist)
-    plt.show()
-plot_17()
+def plot_17(lamdas=[0]):
+    # (1+alpha)/(1+alpha*exp(-d_l/lamda)) == 1+sample
+    # alpha == sample/(1-exp(-d_l/lamda)-exp(-d_l/lamda)*sample)
+    for lamda in lamdas:
+        if (lamda == 0):
+            alpha = sample
+        else:
+            e = np.exp(-42.9/lamda)
+            alpha = sample/(1-e-e*sample)
+        alpha.sort()
+        print(alpha.mean(), alpha.std())
+        print(alpha[int(alpha.size*(0.5-0.3413))],
+              alpha[int(alpha.size*(0.5+0.3413))])
+        print(alpha[int(alpha.size*(0.5-0.4987))],
+              alpha[int(alpha.size*(0.5+0.4987))])
+        alpha = alpha[int(alpha.size*(0.5-0.4987)):int(alpha.size*(0.5+0.4987))]
+        print(alpha.mean(), alpha.std())
+        print(alpha[int(alpha.size*(0.5-0.3413))],
+              alpha[int(alpha.size*(0.5+0.3413))])
+        print(alpha[int(alpha.size*(0.5-0.4987))],
+              alpha[int(alpha.size*(0.5+0.4987))])
+        hist, bin_edges = np.histogram(alpha, bins='auto', density=True)
+        plt.plot((bin_edges[:-1]+bin_edges[1:])/2, hist)
+plot_17([0,42.9e-1,42.9,42.9e+1])
+plt.show()
 
 #img = mpimg.imread('d_l_GW190521.jpg')
 #sample = []
