@@ -31,8 +31,9 @@ x, y = np.array(sample)[:,0], np.array(sample)[:,1]
 x, y = (x-100)/((426-100)/(4-0))/2.5, (y-699)/((699-11)/(0-0.7))*2.5
 print(1.8/2.5, (1.8-0.1)/2.5, (1.8+1.1)/2.5)
 plt.plot(x, y)
-plt.xlabel('${G_\\mathrm{s}/G}$')
-plt.ylabel('$p({G_\\mathrm{s}/G})$')
+
+plt.xlabel('$G_s/G$')
+plt.ylabel('$p(G_s/G)$')
 plt.legend(('GW170817', 'GW190521'))
 plt.grid()
 plt.show()
