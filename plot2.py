@@ -50,7 +50,8 @@ for x in range(500):
     if (ys != []):
         sample.append([x, np.array(ys).mean()])
 x, y = np.array(sample)[:,0], np.array(sample)[:,1]
-x, y = (x-100)/((426-100)/(4-0))/2.5, (y-699)/((699-11)/(0-0.7))*2.5
+x, y = (x-983)/(240-983)*(2-10)+10, (y-9)/(699-9)*(0.0-0.7)+0.7
+x, y = x/2.5, y*2.5
 x, p_x = x-1, y
 print(np.log(1+x.max()))
 
