@@ -56,22 +56,31 @@ print(np.log(1+x.max()))
 
 def plot_19(lamdas=[0]):
     # alpha(x) == x/(1-e-e*x)
-    # P(x<=?) == \int_-oo^? p_x(x) dx
+    # P(x<=?) == \int_-oo^? p_x(x) d{x}
     # P(alpha(x)<=?) == P(x<=alpha^-1(?)) == \int_-oo^alpha^-1(?) p_x(x) d{x}
     # x == alpha^-1(?) <=> alpha(x) == ?
-    #    \int_-oo^alpha^-1(?) p_x(x) dx
+    #    \int_-oo^alpha^-1(?) p_x(x) d{x}
     # == \int_-oo^alpha^-1(?) p_x(alpha^-1(alpha)) d{alpha^-1(alpha)}
     # == \int_-oo^?           p_x(alpha^-1(alpha))alpha^-1'(alpha) d{alpha}
     # alpha^-1(alpha) == (1+alpha)/(1+e*alpha)-1 == x
     # alpha^-1'(alpha) == (1-e)/(1+e*alpha)**2
     # p_alpha(alpha) = p_x((1+alpha)/(1+e*alpha)-1)*(1-e)/(1+e*alpha)**2
+    #    \int alpha*p_alpha(alpha) d{alpha}
+    # == \int alpha*p_x(alpha^-1) d{alpha^-1}
+    # == \int alpha(x)*p_x(x) d{x} approx alpha(\int x*p_x(x) d{x}) (linear)
     for lamda in lamdas:
         if (lamda == 0):
+            e = 0
             alpha, p_alpha = x, p_x
         else:
             e = np.exp(-2.5/lamda)
             alpha, p_alpha = x/(1-e-e*x), p_x*(1-e)/(1+e*alpha)**2
         where = np.where(alpha<=1.5)
+        print(((e*x**2/(1-e)**2)/(x/(1-e))).mean())
+        print(((e*x**2/(1-e)**2)/(x/(1-e))).std())
+        print(((e*x**2/(1-e)**2)/(x/(1-e))).max())
+        x_0, x_m, x_p = 1.8/2.5-1, (1.8-0.1)/2.5-1, (1.8+1.1)/2.5-1
+        print(x_0/(1-e-e*x_0), x_m/(1-e-e*x_m), x_p/(1-e-e*x_p))
         plt.plot(alpha[where], p_alpha[where])
 plot_19([0,2.5/2.0,2.5/1.0])
 plt.title('GW190521')
