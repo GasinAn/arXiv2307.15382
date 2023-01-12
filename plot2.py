@@ -70,7 +70,7 @@ def plot_19(lamdas=[0]):
     # p_alpha(alpha) = p_x((1+alpha)/(1+e*alpha)-1)*(1-e)/(1+e*alpha)**2
     #    \int alpha*p_alpha(alpha) d{alpha}
     # == \int alpha*p_x(alpha^-1) d{alpha^-1}
-    # == \int alpha(x)*p_x(x) d{x} approx alpha(\int x*p_x(x) d{x}) (linear)
+    # == \int alpha(x)*p_x(x) d{x}
     for lamda in lamdas:
         if (lamda == 0):
             e = 0
@@ -78,12 +78,13 @@ def plot_19(lamdas=[0]):
         else:
             e = np.exp(-2.5/lamda)
             alpha, p_alpha = x/(1-e-e*x), p_x*(1-e)/(1+e*alpha)**2
-        where = np.where(alpha<=1.5)
-        print(((e*x**2/(1-e)**2)/(x/(1-e))).mean())
-        print(((e*x**2/(1-e)**2)/(x/(1-e))).std())
-        print(((e*x**2/(1-e)**2)/(x/(1-e))).max())
+        def F(X):
+            return (X/(1-e-e*X))*np.interp(X, x, p_x)
+        from scipy.integrate import quad
+        print(quad(F, x.min(), x.max())[0])
         x_0, x_m, x_p = 1.8/2.5-1, (1.8-0.1)/2.5-1, (1.8+1.1)/2.5-1
         print(x_0/(1-e-e*x_0), x_m/(1-e-e*x_m), x_p/(1-e-e*x_p))
+        where = np.where(alpha<=1.5)
         plt.plot(alpha[where], p_alpha[where])
 plot_19([0,2.5/2.0,2.5/1.0])
 plt.title('GW190521')
