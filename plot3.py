@@ -70,6 +70,10 @@ def plot(lamdas=[0]):
 plot()
 plot(42.9*np.logspace(np.log10(1/3), np.log10(1*3), 7))
 plt.xlim((-1.5, +0.5))
+plt.title('GW170817+GW190521')
+plt.xlabel('$\\alpha$')
+plt.ylabel('$p(\\alpha)$')
+plt.grid()
 plt.colorbar(mpl.cm.ScalarMappable(cmap=cmap),
              label='$\\lambda$(Mpc)',
              ticks=42.9*np.logspace(np.log10(1/4), np.log10(1*4), 9),
