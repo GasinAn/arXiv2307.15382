@@ -9,7 +9,10 @@ colors = mpl.colormaps[cmap].resampled(1001)
 
 f = h5py.File('GW170817_GWTC-1.hdf5','r')
 dset = f['IMRPhenomPv2NRT_lowSpin_posterior']
-d_l_gw = np.sort(dset['luminosity_distance_Mpc'])
+d_l_gw_sample = np.sort(dset['luminosity_distance_Mpc'])
+d_l_gw = np.random.choice(d_l_gw_sample, size=10**8)
+d_l = np.random.normal(loc=42.9, scale=3.2, size=10**8)
+g_17 = (d_l_gw/d_l)**2
 
 img = mpimg.imread('d_l_GW190521.jpg')
 sample = []
@@ -30,8 +33,6 @@ g_19, p_g_19 = g, p_g/s
 
 def plot(lamdas=[0]):
     for lamda in lamdas:
-        d_l = np.random.normal(loc=42.9, scale=3.2, size=10**8)
-        g_17 = (np.random.choice(d_l_gw, size=10**8)/d_l)**2
         if (lamda == 0):
             e = np.zeros(10**8)
             a_17 = g_17-1
