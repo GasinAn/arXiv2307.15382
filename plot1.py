@@ -8,7 +8,6 @@ fig, axs = plt.subplots(ncols=2)
 f = h5py.File('GW170817_GWTC-1.hdf5','r')
 dset = f['IMRPhenomPv2NRT_lowSpin_posterior']
 d_l = np.sort(dset['luminosity_distance_Mpc'])
-
 sample = np.sort((np.random.choice(d_l, size=10**8)
                  /np.random.normal(loc=42.9, scale=3.2, size=10**8))**2)
 print(sample.mean(), sample.std())
