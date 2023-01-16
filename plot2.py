@@ -4,6 +4,10 @@ import matplotlib as mpl
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
+cmap = 'viridis'
+colors = mpl.colormaps[cmap].resampled(1001)
+fig, axs = plt.subplots(ncols=2)
+
 f = h5py.File('GW170817_GWTC-1.hdf5','r')
 dset = f['IMRPhenomPv2NRT_lowSpin_posterior']
 d_l = np.sort(dset['luminosity_distance_Mpc'])
@@ -33,27 +37,19 @@ def plot_17(lamdas=[0]):
         #print(quad(F, g.min(), g.max())[0])
         alpha_i = np.sort_complex(alpha+p_alpha*1j)
         if (lamda == 0):
-            plt.plot(alpha_i.real, alpha_i.imag,
-                     c='black')
+            axs[0].plot(alpha_i.real, alpha_i.imag,
+                        c='black')
         else:
-            plt.plot(alpha_i.real, alpha_i.imag,
-                     c=colors(np.log10(lamda/42.9)*(0.5/np.log10(4))+0.5))
+            axs[0].plot(alpha_i.real, alpha_i.imag,
+                        c=colors(np.log10(lamda/42.9)*(0.5/np.log10(4))+0.5))
 
-cmap = 'viridis'
-colors = mpl.colormaps[cmap].resampled(1001)
 plot_17()
-plot_17(42.9*np.logspace(np.log10(1/3), np.log10(1*3), 9))
-plt.xlim((-1.5, +0.5))
-plt.colorbar(mpl.cm.ScalarMappable(cmap=cmap),
-             label='$\\lambda$(Mpc)',
-             ticks=42.9*np.logspace(np.log10(1/4), np.log10(1*4), 9),
-             boundaries=42.9*np.logspace(np.log10(1/4), np.log10(1*4), 1001),
-             values=np.linspace(0, 1, 1000))
-plt.title('GW170817')
-plt.xlabel('$\\alpha$')
-plt.ylabel('$p(\\alpha)$')
-plt.grid()
-plt.show()
+plot_17(42.9*np.logspace(np.log10(1/3), np.log10(1*3), 7))
+axs[0].set_xlim((-1.5, +0.5))
+axs[0].set_title('GW170817')
+axs[0].set_xlabel('$\\alpha$')
+axs[0].set_ylabel('$p(\\alpha)$')
+axs[0].grid()
 
 img = mpimg.imread('d_l_GW190521.jpg')
 sample = []
@@ -107,24 +103,28 @@ def plot_19(lamdas=[0]):
         #print(-((1-g_0)/(1-g_0*e)), -((1-g_m)/(1-g_m*e)), -((1-g_p)/(1-g_p*e)))
         alpha_i = np.sort_complex(alpha+p_alpha*1j)
         if (lamda == 0):
-            plt.plot(alpha_i.real, alpha_i.imag,
-                     c='black')
+            axs[1].plot(alpha_i.real, alpha_i.imag,
+                        c='black')
         else:
-            plt.plot(alpha_i.real, alpha_i.imag,
-                     c=colors(np.log10(lamda/2.5)*(0.5/np.log10(4))+0.5))
+            axs[1].plot(alpha_i.real, alpha_i.imag,
+                        c=colors(np.log10(lamda/2.5)*(0.5/np.log10(4))+0.5))
 
-cmap = 'viridis'
-colors = mpl.colormaps[cmap].resampled(1001)
 plot_19()
-plot_19(2.5*np.logspace(np.log10(1/3), np.log10(1*3), 9))
-plt.xlim((-1.5, +0.5))
-plt.colorbar(mpl.cm.ScalarMappable(cmap=cmap),
+plot_19(2.5*np.logspace(np.log10(1/3), np.log10(1*3), 7))
+axs[1].set_xlim((-1.5, +0.5))
+axs[1].set_title('GW190521')
+axs[1].set_xlabel('$\\alpha$')
+axs[1].set_ylabel('$p(\\alpha)$')
+axs[1].grid()
+
+fig.colorbar(mpl.cm.ScalarMappable(cmap=cmap), ax=axs[0],
+             label='$\\lambda$(Mpc)',
+             ticks=42.9*np.logspace(np.log10(1/4), np.log10(1*4), 9),
+             boundaries=42.9*np.logspace(np.log10(1/4), np.log10(1*4), 1001),
+             values=np.linspace(0, 1, 1000))
+fig.colorbar(mpl.cm.ScalarMappable(cmap=cmap), ax=axs[1],
              label='$\\lambda$(Gpc)',
              ticks=2.5*np.logspace(np.log10(1/4), np.log10(1*4), 9),
              boundaries=2.5*np.logspace(np.log10(1/4), np.log10(1*4), 1001),
              values=np.linspace(0, 1, 1000))
-plt.title('GW190521')
-plt.xlabel('$\\alpha$')
-plt.ylabel('$p(\\alpha)$')
-plt.grid()
-plt.show()
+fig.show()
