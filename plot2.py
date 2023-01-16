@@ -16,7 +16,7 @@ sample = (np.random.choice(d_l, size=10**8)
 hist, bin_edges = np.histogram(sample, bins=200, density=True)
 g, p_g = (bin_edges[:-1]+bin_edges[1:])/2, hist
 s = ((g[1:]-g[:-1])*(p_g[1:]+p_g[:-1])).sum()/2
-g, p_g = g/s, p_g/s
+g, p_g = g, p_g/s
 print(g.max())
 
 def plot_17(lamdas=[0]):
@@ -66,7 +66,7 @@ g, p_g = np.array(sample)[:,0], np.array(sample)[:,1]
 g, p_g = (g-983)/(240-983)*(2-10)+10, (p_g-9)/(699-9)*(0.0-0.7)+0.7
 g, p_g = g/2.5, p_g*2.5
 s = ((g[1:]-g[:-1])*(p_g[1:]+p_g[:-1])).sum()/2
-g, p_g = g/s, p_g/s
+g, p_g = g, p_g/s
 print(g.max())
 
 def plot_19(lamdas=[0]):

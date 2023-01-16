@@ -41,7 +41,7 @@ x, y = np.array(sample)[:,0], np.array(sample)[:,1]
 x, y = (x-983)/(240-983)*(2-10)+10, (y-9)/(699-9)*(0.0-0.7)+0.7
 x, y = x/2.5, y*2.5
 s = ((x[1:]-x[:-1])*(y[1:]+y[:-1])).sum()/2
-x, y = x/s, y/s
+x, y = x, y/s
 s = 0
 for i in range(len(x)):
     s += ((x[i+1]-x[i])*(y[i+1]+y[i]))/2
