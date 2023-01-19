@@ -67,4 +67,4 @@ axs[1].yaxis.set_label_position('right')
 axs[1].yaxis.tick_right()
 axs[1].grid()
 
-plt.show()
+plt.savefig('plot1')

@@ -4,14 +4,11 @@ import matplotlib as mpl
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-cmap = 'viridis'
-colors = mpl.colormaps[cmap].resampled(1001)
-
 f = h5py.File('GW170817_GWTC-1.hdf5','r')
 dset = f['IMRPhenomPv2NRT_lowSpin_posterior']
 d_l_gw_sample = np.sort(dset['luminosity_distance_Mpc'])
-d_l_gw = np.random.choice(d_l_gw_sample, size=10**8)
-d_l = np.random.normal(loc=42.9, scale=3.2, size=10**8)
+d_l_gw = np.random.choice(d_l_gw_sample, size=d_l_gw_sample.size**2)
+d_l = np.random.normal(loc=42.9, scale=3.2, size=d_l_gw_sample.size**2)
 g_17 = (d_l_gw/d_l)**2
 
 img = mpimg.imread('d_l_GW190521.jpg')
@@ -31,8 +28,12 @@ g, p_g = g/2.5, p_g*2.5
 s = ((g[1:]-g[:-1])*(p_g[1:]+p_g[:-1])).sum()/2
 g_19, p_g_19 = g, p_g/s
 
-def plot(lamdas=[0]):
-    for lamda in lamdas:
+def plot(lamdas=np.linspace(0, 42.9*3, 101),
+         alphas=np.linspace(-1.5, 0.5, 1001)):
+    plt.xlim((alphas.min(), alphas.max()))
+    p_alphas = np.empty((lamdas.size, alphas.size))
+    for i in range(lamdas.size):
+        lamda = lamdas[i]
         if (lamda == 0):
             e = np.zeros(10**8)
             a_17 = g_17-1
@@ -58,25 +59,12 @@ def plot(lamdas=[0]):
         a = np.sort(np.hstack((a_17, a_19)))
         p_a = (np.interp(a, a_17, p_a_17, left=0, right=0)
               +np.interp(a, a_19, p_a_19, left=0, right=0))/2
-        #plt.plot(a_17, p_a_17)
-        #plt.plot(a_19, p_a_19)
-        if (lamda == 0):
-            plt.plot(a, p_a,
-                     c='black')
-        else:
-            plt.plot(a, p_a,
-                     c=colors(np.log10(lamda/42.9)*(0.5/np.log10(4))+0.5))
+        p_alphas[i] = np.interp(alphas, a, p_a)
+    return plt.contourf(alphas, lamdas, p_alphas, levels=100)
 
-plot()
-plot(42.9*np.logspace(np.log10(1/3), np.log10(1*3), 7))
-plt.xlim((-1.5, +0.5))
+qcs = plot()
 plt.title('GW170817+GW190521')
 plt.xlabel('$\\alpha$')
-plt.ylabel('$p(\\alpha)$')
-plt.grid()
-plt.colorbar(mpl.cm.ScalarMappable(cmap=cmap),
-             label='$\\lambda$(Mpc)',
-             ticks=42.9*np.logspace(np.log10(1/4), np.log10(1*4), 9),
-             boundaries=42.9*np.logspace(np.log10(1/4), np.log10(1*4), 1001),
-             values=np.linspace(0, 1, 1000))
-plt.show()
+plt.ylabel('$\\lambda$')
+plt.colorbar(qcs, label='$p(\\alpha)$')
+plt.savefig('plot3_1')
