@@ -4,8 +4,6 @@ import matplotlib as mpl
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-fig, axs = plt.subplots(nrows=2)
-
 f = h5py.File('GW170817_GWTC-1.hdf5','r')
 dset = f['IMRPhenomPv2NRT_lowSpin_posterior']
 d_l_gw_sample = np.sort(dset['luminosity_distance_Mpc'])
@@ -30,10 +28,8 @@ g, p_g = g/2.5, p_g*2.5
 s = ((g[1:]-g[:-1])*(p_g[1:]+p_g[:-1])).sum()/2
 g_19, p_g_19 = g, p_g/s
 
-def plot(ax, lamdas,
-         alphas=np.linspace(-1.5, 0.5, 1001)):
-    plt.xlim((alphas.min(), alphas.max()))
-    p_alphas = np.empty((lamdas.size, alphas.size))
+def plot(lamdas=np.linspace(0, 42.9*3, 101)):
+    js = np.empty(lamdas.size)
     for i in range(lamdas.size):
         lamda = lamdas[i]
         if (lamda == 0):
@@ -42,12 +38,13 @@ def plot(ax, lamdas,
         else:
             e = (1+d_l/lamda)*np.exp(-d_l/lamda)
             a_17 = -((1-g_17)/(1-g_17*e))
-        a_17 = a_17[np.where(abs(a_17)<=5)]
+        a_17 = a_17[np.where(abs(a_17)<=10)]
         bins = int((a_17.max()-a_17.min())*200)
         hist, bin_edges = np.histogram(a_17, bins=bins, density=True)
         a_17, p_a_17 = (bin_edges[:-1]+bin_edges[1:])/2, hist
         s = ((a_17[1:]-a_17[:-1])*(p_a_17[1:]+p_a_17[:-1])).sum()/2
         a_17, p_a_17 = a_17, p_a_17/s
+        p_a_17[np.where(p_a_17==0)] = 1e-9
         if (lamda == 0):
             e = 0
             a_19 = g_19-1
@@ -58,19 +55,23 @@ def plot(ax, lamdas,
             p_a_19 = p_g_19*((1-e)/(1+a_19*e)**2)
         s = ((a_19[1:]-a_19[:-1])*(p_a_19[1:]+p_a_19[:-1])).sum()/2
         a_19, p_a_19 = a_19, p_a_19/s
-        a = np.sort(np.hstack((a_17, a_19)))
-        p_a = (np.interp(a, a_17, p_a_17, left=0, right=0)
-              +np.interp(a, a_19, p_a_19, left=0, right=0))/2
-        p_alphas[i] = np.interp(alphas, a, p_a)
-    return axs[ax].contourf(alphas, lamdas, p_alphas, levels=100)
+        p_a_19[np.where(p_a_19==0)] = 1e-9
+        from scipy.integrate import simpson
+        a = np.linspace(a_17.min(), a_17.max(), 10001)
+        p_17 = np.interp(a, a_17, p_a_17, left=0, right=0)
+        p_19 = np.interp(a, a_19, p_a_19, left=0, right=0)
+        kl_17 = simpson(p_17*np.log2(p_17/((p_17+p_19)/2)), a)
+        a = np.linspace(a_19.min(), a_19.max(), 10001)
+        p_19 = np.interp(a, a_19, p_a_19, left=0, right=0)
+        p_17 = np.interp(a, a_17, p_a_17, left=0, right=0)
+        kl_19 = simpson(p_19*np.log2(p_19/((p_19+p_17)/2)), a)
+        js[i] = (kl_17+kl_19)/2
+    plt.plot(lamdas, js)
 
-qcs0 = plot(ax=0, lamdas=np.linspace(0, 42.9*3, 101))
-qcs1 = plot(ax=1, lamdas=np.linspace(2.5e3/3, 2.5e3*3, 101))
-for ax in axs:
-    ax.set_xlabel('$\\alpha$')
-    ax.set_ylabel('$\\lambda$(Mpc)')
-for qcs in (qcs0, qcs1):
-    plt.colorbar(qcs, label='$p(\\alpha)$')
-
-fig.suptitle('GW170817+GW190521')
-fig.savefig('plot3_1')
+plot()
+plt.ylim(0, 0.8) 
+plt.title('GW170817 vs GW190521')
+plt.xlabel('$\\lambda$(Mpc)')
+plt.ylabel('JS divergence')
+plt.grid()
+plt.savefig('plot4')

@@ -35,7 +35,7 @@ def plot_17(lamdas=np.linspace(0, 42.9*3, 101),
 qcs_17 = plot_17()
 axs[0].set_title('GW170817')
 axs[0].set_xlabel('$\\alpha$')
-axs[0].set_ylabel('$\\lambda$')
+axs[0].set_ylabel('$\\lambda$(Mpc)')
 
 img = mpimg.imread('d_l_GW190521.jpg')
 sample = []
@@ -73,7 +73,7 @@ def plot_19(lamdas=np.linspace(0, 2.5*3, 101),
 qcs_19 = plot_19()
 axs[1].set_title('GW190521')
 axs[1].set_xlabel('$\\alpha$')
-axs[1].set_ylabel('$\\lambda$')
+axs[1].set_ylabel('$\\lambda$(Gpc)')
 
 fig.colorbar(qcs_17, ax=axs[0], label='$p(\\alpha)$')
 fig.colorbar(qcs_19, ax=axs[1], label='$p(\\alpha)$')
