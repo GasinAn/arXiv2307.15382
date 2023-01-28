@@ -53,6 +53,8 @@ def plot(lamdas=np.linspace(0, 42.9*3, 101)):
             e = (1+2.5e3/lamda)*np.exp(-2.5e3/lamda)
             a_19 = -((1-g_19)/(1-g_19*e))
             p_a_19 = p_g_19*((1-e)/(1+a_19*e)**2)
+        a_i = np.sort_complex(a_19+p_a_19*1j)
+        a_19, p_a_19 = a_i.real, a_i.imag
         s = ((a_19[1:]-a_19[:-1])*(p_a_19[1:]+p_a_19[:-1])).sum()/2
         a_19, p_a_19 = a_19, p_a_19/s
         p_a_19[np.where(p_a_19==0)] = 1e-9
@@ -69,7 +71,8 @@ def plot(lamdas=np.linspace(0, 42.9*3, 101)):
     plt.plot(lamdas, js)
 
 plot()
-plt.ylim(0, 0.8) 
+plot(lamdas=np.linspace(2.5e3/3, 2.5e3*3, 101))
+plt.ylim() 
 plt.title('GW170817 vs GW190521')
 plt.xlabel('$\\lambda$(Mpc)')
 plt.ylabel('JS divergence')
