@@ -44,7 +44,10 @@ def plot(ax,
         else:
             e = (1+d_l/lamda)*np.exp(-d_l/lamda)
             a_17 = -((1-g_17)/(1-g_17*e))
-        a_17 = a_17[np.where(abs(a_17)<=10)]
+        if (ax == 0):
+            a_17 = a_17[np.where(abs(a_17)<=10)]
+        if (ax == 1):
+            a_17 = a_17[np.where(abs(a_17+1)<=0.5)]
         bins = int((a_17.max()-a_17.min())*200)
         hist, bin_edges = np.histogram(a_17, bins=bins, density=True)
         a_17, p_a_17 = (bin_edges[:-1]+bin_edges[1:])/2, hist
@@ -52,22 +55,18 @@ def plot(ax,
         a_17, p_a_17 = a_17, p_a_17/s
         if (lamda == 0):
             e = 0
-            a_19 = g_19-1
-            p_a_19 = p_g_19
         else:
             e = (1+2.5e3/lamda)*np.exp(-2.5e3/lamda)
-            a_19 = -((1-g_19)/(1-g_19*e))
-            p_a_19 = p_g_19*((1-e)/(1+a_19*e)**2)
-        a_i = np.sort_complex(a_19+p_a_19*1j)
-        a_19, p_a_19 = a_i.real, a_i.imag
-        s = ((a_19[1:]-a_19[:-1])*(p_a_19[1:]+p_a_19[:-1])).sum()/2
-        a_19, p_a_19 = a_19, p_a_19/s
+        alpha = -((1-g_19)/(1-g_19*e))
+        p_alpha = p_g_19*((1-e)/(1+alpha*e)**2)
+        alpha_i = np.sort_complex(alpha+p_alpha*1j)
+        a_19, p_a_19 = alpha_i.real, alpha_i.imag
         p_alphas[i] = (np.interp(alphas, a_17, p_a_17)
                       +np.interp(alphas, a_19, p_a_19))/2
     if (ax == 0):
         extend = 'neither'
     if (ax == 1):
-        p_alphas[p_alphas>5] = 5
+        p_alphas[np.where(p_alphas>5)] = 5
         extend = 'max'
     return axs[ax].contourf(alphas, lamdas, p_alphas,
                             levels=levels, cmap=cmap, extend=extend)

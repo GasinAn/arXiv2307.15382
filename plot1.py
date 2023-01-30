@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-fig, axs = plt.subplots(ncols=2)
+fig, axs = plt.subplots(ncols=2, layout='constrained')
 
 f = h5py.File('GW170817_GWTC-1.hdf5','r')
 dset = f['IMRPhenomPv2NRT_lowSpin_posterior']

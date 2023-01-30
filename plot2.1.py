@@ -30,14 +30,14 @@ def plot_17(lamdas=np.linspace(0, 3, 101),
         p_alpha = p_g*((1-e)/(1+alpha*e)**2)
         alpha_i = np.sort_complex(alpha+p_alpha*1j)
         p_alphas[i] = np.interp(alphas, alpha_i.real, alpha_i.imag)
-    return axs[0].contourf(alphas, lamdas, p_alphas, levels=101)
+    return p_alphas.max(), axs[0].contourf(alphas, lamdas, p_alphas, levels=101)
 
-qcs_17 = plot_17()
+max_17, qcs_17 = plot_17()
 axs[0].set_title('GW170817')
 axs[0].set_xlabel('$\\alpha$')
-axs[0].set_ylabel('$\\lambda/D_L$')
-axs[0].yaxis.set_label_position('left')
-axs[0].yaxis.tick_left()
+axs[0].set_ylabel('$\\lambda/D_{L,17}$')
+axs[0].yaxis.set_label_position('right')
+axs[0].yaxis.tick_right()
 
 img = mpimg.imread('d_l_GW190521.jpg')
 sample = []
@@ -70,15 +70,17 @@ def plot_19(lamdas=np.linspace(0, 3, 101),
         p_alpha = p_g*((1-e)/(1+alpha*e)**2)
         alpha_i = np.sort_complex(alpha+p_alpha*1j)
         p_alphas[i] = np.interp(alphas, alpha_i.real, alpha_i.imag)
-    return axs[1].contourf(alphas, lamdas, p_alphas, levels=101)
+    return p_alphas.max(), axs[1].contourf(alphas, lamdas, p_alphas, levels=101)
 
-qcs_19 = plot_19()
+max_19, qcs_19 = plot_19()
 axs[1].set_title('GW190521')
 axs[1].set_xlabel('$\\alpha$')
-axs[1].set_ylabel('$\\lambda/D_L$')
-axs[1].yaxis.set_label_position('right')
-axs[1].yaxis.tick_right()
+axs[1].set_ylabel('$\\lambda/D_{L,19}$')
+axs[1].yaxis.set_label_position('left')
+axs[1].yaxis.tick_left()
 
-fig.colorbar(qcs_17, ax=axs[0], location='right', label='$p(\\alpha)$')
-fig.colorbar(qcs_19, ax=axs[1], location='left' , label='$p(\\alpha)$')
+fig.colorbar(qcs_17, ax=axs[0], location='left' , label='$p(\\alpha)$',
+             format='%3.1f')
+fig.colorbar(qcs_19, ax=axs[1], location='right', label='$p(\\alpha)$',
+             format='%3.1f')
 fig.savefig('plot2_1')
