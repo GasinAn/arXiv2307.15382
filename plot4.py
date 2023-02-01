@@ -26,85 +26,48 @@ g, p_g = np.array(sample)[:,0], np.array(sample)[:,1]
 g, p_g = (g-983)/(240-983)*(2-10)+10, (p_g-9)/(699-9)*(0.0-0.7)+0.7
 g, p_g = g/2.5, p_g*2.5
 s = ((g[1:]-g[:-1])*(p_g[1:]+p_g[:-1])).sum()/2
-g_19, p_g_19 = g, p_g/s
+g, p_g = g, p_g/s
+x = np.random.uniform(g.min(), g.max(), d_l_gw_sample.size**2)
+y = np.random.uniform(0, p_g.max(), d_l_gw_sample.size**2)
+g_19 = x[np.where(y<=np.interp(x, g, p_g, left=0, right=0))]
 
-def plot17(lamdas=np.linspace(0, 42.9*3, 101)):
+def plot(lamdas):
     js = np.empty(lamdas.size)
     for i in range(lamdas.size):
         print(i)
         lamda = lamdas[i]
         if (lamda == 0):
-            e = np.zeros(10**8)
             a_17 = g_17-1
         else:
             e = (1+d_l/lamda)*np.exp(-d_l/lamda)
             a_17 = -((1-g_17)/(1-g_17*e))
-        a_17 = a_17[np.where(abs(a_17)<=10)]
-        bins = int((a_17.max()-a_17.min())*200)
+        a_17 = np.sort(a_17)[int(a_17.size*0.001):int(a_17.size*0.999)]
+        print(a_17[0], a_17[-1])
+        bins = int((a_17[-1]-a_17[0])*200)
         hist, bin_edges = np.histogram(a_17, bins=bins, density=True)
         a_17, p_a_17 = (bin_edges[:-1]+bin_edges[1:])/2, hist
         s = ((a_17[1:]-a_17[:-1])*(p_a_17[1:]+p_a_17[:-1])).sum()/2
         a_17, p_a_17 = a_17, p_a_17/s
         if (lamda == 0):
-            e = 0
+            a_19 = g_19-1
         else:
             e = (1+2.5e3/lamda)*np.exp(-2.5e3/lamda)
-        alpha = -((1-g_19)/(1-g_19*e))
-        p_alpha = p_g_19*((1-e)/(1+alpha*e)**2)
-        alpha_i = np.sort_complex(alpha+p_alpha*1j)
-        a_19, p_a_19 = alpha_i.real, alpha_i.imag
-        from scipy.integrate import simpson
-        a = np.linspace(a_17.min(), a_17.max(), 10**7)
-        p_17 = np.interp(a, a_17, p_a_17, left=0, right=0)
-        p_19 = np.interp(a, a_19, p_a_19, left=0, right=0)
-        f = p_17*np.log2(p_17/((p_17+p_19)/2))
-        f[np.isnan(f)] = 0
-        kl_17 = simpson(f, a)
-        a = np.linspace(a_19.min(), a_19.max(), 10**7)
-        p_19 = np.interp(a, a_19, p_a_19, left=0, right=0)
-        p_17 = np.interp(a, a_17, p_a_17, left=0, right=0)
-        f = p_19*np.log2(p_19/((p_19+p_17)/2))
-        f[np.isnan(f)] = 0
-        kl_19 = simpson(f, a)
-        js[i] = (kl_17+kl_19)/2
-    plt.plot(lamdas, js)
-
-def plot19(lamdas=np.linspace(2.5e3/3, 2.5e3*3, 101)):
-    js = np.empty(lamdas.size)
-    for i in range(lamdas.size):
-        print(i)
-        lamda = lamdas[i]
-        if (lamda == 0):
-            e = np.zeros(10**8)
-            a_17 = g_17-1
-        else:
-            e = (1+d_l/lamda)*np.exp(-d_l/lamda)
-            a_17 = -((1-g_17)/(1-g_17*e))
-        a_17 = a_17[np.where(abs(a_17+1)<=0.5)]
-        bins = int((a_17.max()-a_17.min())*200)
-        hist, bin_edges = np.histogram(a_17, bins=bins, density=True)
-        a_17, p_a_17 = (bin_edges[:-1]+bin_edges[1:])/2, hist
-        s = ((a_17[1:]-a_17[:-1])*(p_a_17[1:]+p_a_17[:-1])).sum()/2
-        a_17, p_a_17 = a_17, p_a_17/s
-        if (lamda == 0):
-            e = 0
-        else:
-            e = (1+2.5e3/lamda)*np.exp(-2.5e3/lamda)
-        alpha = -((1-g_19)/(1-g_19*e))
-        p_alpha = p_g_19*((1-e)/(1+alpha*e)**2)
-        where = np.where(abs(a_17)<=10)
-        alpha_i = np.sort_complex(alpha[where]+p_alpha[where]*1j)
-        a_19, p_a_19 = alpha_i.real, alpha_i.imag
+            a_19 = -((1-g_19)/(1-g_19*e))
+        a_19 = np.sort(a_19)[int(a_19.size*0.001):int(a_19.size*0.999)]
+        print(a_19[0], a_19[-1])
+        bins = int((a_19[-1]-a_19[0])*200)
+        hist, bin_edges = np.histogram(a_19, bins=bins, density=True)
+        a_19, p_a_19 = (bin_edges[:-1]+bin_edges[1:])/2, hist
         s = ((a_19[1:]-a_19[:-1])*(p_a_19[1:]+p_a_19[:-1])).sum()/2
         a_19, p_a_19 = a_19, p_a_19/s
         from scipy.integrate import simpson
-        a = np.linspace(a_17.min(), a_17.max(), 10**7)
+        a = np.linspace(a_17[0], a_17[-1], 10**7)
         p_17 = np.interp(a, a_17, p_a_17, left=0, right=0)
         p_19 = np.interp(a, a_19, p_a_19, left=0, right=0)
         f = p_17*np.log2(p_17/((p_17+p_19)/2))
         f[np.isnan(f)] = 0
         kl_17 = simpson(f, a)
-        a = np.linspace(a_19.min(), a_19.max(), 10**7)
+        a = np.linspace(a_19[0], a_19[-1], 10**7)
         p_19 = np.interp(a, a_19, p_a_19, left=0, right=0)
         p_17 = np.interp(a, a_17, p_a_17, left=0, right=0)
         f = p_19*np.log2(p_19/((p_19+p_17)/2))
@@ -113,8 +76,7 @@ def plot19(lamdas=np.linspace(2.5e3/3, 2.5e3*3, 101)):
         js[i] = (kl_17+kl_19)/2
     plt.plot(lamdas, js)
 
-plot17()
-plot19()
+plot(lamdas=np.linspace(2.5e3/3, 2.5e3*3, 101))
 plt.ylim()
 plt.title('GW170817 vs GW190521')
 plt.xlabel('$\\lambda$(Mpc)')
