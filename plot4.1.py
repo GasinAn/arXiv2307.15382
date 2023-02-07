@@ -41,7 +41,7 @@ def plot(lamdas=np.linspace(0, 3, 101)):
         else:
             e = (1+1/lamda)*np.exp(-1/lamda)
             a_17 = -((1-g_17)/(1-g_17*e))
-        a_17 = np.sort(a_17)[int(a_17.size*0.001):int(a_17.size*0.999)]
+        a_17 = np.sort(a_17)[int(a_17.size*0.00001):int(a_17.size*0.99999)]
         print(a_17[0], a_17[-1])
         bins = int((a_17[-1]-a_17[0])*200)
         hist, bin_edges = np.histogram(a_17, bins=bins, density=True)
@@ -53,7 +53,7 @@ def plot(lamdas=np.linspace(0, 3, 101)):
         else:
             e = (1+1/lamda)*np.exp(-1/lamda)
             a_19 = -((1-g_19)/(1-g_19*e))
-        a_19 = np.sort(a_19)[int(a_19.size*0.001):int(a_19.size*0.999)]
+        a_19 = np.sort(a_19)[int(a_19.size*0.00001):int(a_19.size*0.99999)]
         print(a_19[0], a_19[-1])
         bins = int((a_19[-1]-a_19[0])*200)
         hist, bin_edges = np.histogram(a_19, bins=bins, density=True)
