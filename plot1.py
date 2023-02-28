@@ -14,6 +14,7 @@ hist, bin_edges = np.histogram(sample, bins='auto', density=True)
 print(bin_edges.size-1)
 hist, bin_edges = np.histogram(sample, bins=int(bin_edges.size/8), density=True)
 g, p_g = (bin_edges[:-1]+bin_edges[+1:])/2, hist
+print(g[(p_g == p_g.max())][0])
 
 def P_normal(p):
     P = 1
@@ -60,4 +61,4 @@ plt.ylim((-0.10, +1.35))
 plt.xlabel('$G_s/G$')
 plt.ylabel('$p(G_s/G)$')
 plt.grid()
-plt.show()
+plt.savefig('plot1.jpg', dpi=800)
