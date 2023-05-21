@@ -52,9 +52,24 @@ while (abs(P-0.95) >= 0.0001):
     P, g_1, g_2 = P_normal(p)
 print(P, g_1, g_2)
 
+for i in range(g.size-1, -1, -1):
+    if (g[i-1] < 1):
+        p = np.interp(1, g[i-1:i+1], p_g[i-1:i+1])
+        break
+for i in range(0, g.size, 1):
+    if (p_g[i+1] > p):
+        g_3 = np.interp(p, p_g[i:i+2], g[i:i+2])
+        break
+
 plt.plot(g, p_g)
 plt.axvline(g_1, c='tab:grey', ls='--')
 plt.axvline(g_2, c='tab:grey', ls='--')
+plt.axvline(1, c='tab:grey', ls=':')
+plt.plot([g_3, 1], [p, p], c='tab:grey', ls=':')
+plt.axvline(g_3, c='tab:grey', ls=':')
+plt.fill_between(np.linspace(g_3, 1, 1001),
+                 np.interp(np.linspace(g_3, 1, 1001), g, p_g),
+                 color='lightblue')
 plt.title('GW170817')
 plt.xlim((-0.1, +2.1))
 plt.ylim((-0.10, +1.35))
